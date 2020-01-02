@@ -18,4 +18,5 @@ Route::get('hello/:name', 'index/hello')->middleware(['check']);
 
 Route::group('test',function(){
     Route::get('appLists', 'appLists');
+    Route::get('containerBind', 'containerBind');
 })->prefix('test/');
