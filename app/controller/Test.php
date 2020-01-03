@@ -43,4 +43,10 @@ class Test extends BaseController
 
     }
 
+    //中间件
+    public function middleware()
+    {
+
+    }
+
 }
