@@ -99,7 +99,7 @@ class Test extends BaseController
 
     public function commond()
     {
-        echo 22;
+        echo 242;
     }
 
 }
