@@ -10,6 +10,7 @@ namespace app\controller;
 
 
 use app\BaseController;
+use app\middleware\Cmiddleware;
 use app\model\User;
 use app\service\TestService;
 use think\App;
@@ -18,6 +19,9 @@ use think\facade\Event;
 
 class Test extends BaseController
 {
+
+    //protected $middleware = [Cmiddleware::class];
+
 
     //protected $app;
     public function __construct(App $app)
@@ -101,5 +105,11 @@ class Test extends BaseController
     {
         echo 242;
     }
+
+    public function cmiddleware()
+    {
+
+    }
+
 
 }

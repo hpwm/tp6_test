@@ -31,6 +31,8 @@ Route::group('test',function(){
 
     Route::get('commond','commond');
 
+    Route::get('cmiddleware','cmiddleware');
+
 })->prefix('test/');
 //资源路由
 Route::resource('blog', 'Test');
