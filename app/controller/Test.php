@@ -112,4 +112,13 @@ class Test extends BaseController
     }
 
 
+    public function curls()
+    {
+        $url = 'http://192.168.50.222:9501/test/redisPool';
+        for($i=0;$i<50;$i++){
+            $data[] = https_request($url);
+        }
+        var_dump($data);
+    }
+
 }

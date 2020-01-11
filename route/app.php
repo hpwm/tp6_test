@@ -32,6 +32,7 @@ Route::group('test',function(){
     Route::get('commond','commond');
 
     Route::get('cmiddleware','cmiddleware');
+    Route::get('curls','curls');
 
 })->prefix('test/');
 //资源路由
