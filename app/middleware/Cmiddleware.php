@@ -1,11 +1,15 @@
 <?php
-declare (strict_types = 1);
+/**
+ * Created by PhpStorm
+ * User: Administrator
+ * Date: 2020/1/10
+ * Time: 13:51
+ **/
 
 namespace app\middleware;
 
-use think\Response;
 
-class Check
+class Cmiddleware
 {
     /**
      * 处理请求
@@ -18,19 +22,9 @@ class Check
     {
         //
         //var_dump($request->param());
+        if(true){
+            return json(['code'=>400,'msg'=>'中间件']);
+        }
         return $next($request);
-    }
-
-
-    public function end(Response $response)
-    {
-        //不能有输出 echo 或者var_dump
-
-//        ob_clean();
-//        echo 22;
-//        ob_get_contents();
-
-        //file_put_contents('1.json',$response->getData());
-
     }
 }

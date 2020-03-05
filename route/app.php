@@ -9,25 +9,28 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 use think\facade\Route;
-
+use app\middleware\Check;
+use think\middleware\AllowCrossDomain;
 Route::get('think', function () {
     return 'hello,ThinkPHP6!';
 });
 
-Route::get('hello/:name', 'index/hello')->middleware(['check']);
+Route::get('hello/:name', 'index/hello');
 
 Route::group('test',function(){
     Route::get('appLists', 'appLists');
     Route::get('containerBind', 'containerBind');
+    Route::get('facade', 'facade');
+    //Route::get('middleware', 'middleware')->middleware([AllowCrossDomain::class],['Access-Control-Allow-Headers'=>'token']);
+    Route::get('middleware', 'middleware')->middleware([Check::class],['test'=>'token']);
+    Route::get('login', 'login');
+
+
+    //路由 组合变量
+    Route::get('combine-<name>-<id>','route');
+
+    Route::get('commond','commond');
+
+    Route::get('cmiddleware','cmiddleware');
+
 })->prefix('test/');
-
-
-Route::get('doc/assets', "DocController/assets",['deny_ext'=>'php|.htacess']);
-Route::get('doc/search', "DocController/search");
-Route::get('doc/list', "DocController/getList");
-Route::get('doc/info', "DocController/getInfo");
-Route::any('doc/debug', "DocController/debug");
-Route::any('doc/pass', "DocController/pass");
-Route::any('doc/login', "DocController/login");
-Route::any('doc', "DocController/index");
-

@@ -15,10 +15,10 @@ namespace think;
 require __DIR__ . '/../vendor/autoload.php';
 
 // 执行HTTP应用并响应
-$http = (new App())->http;
+$http = (new App())->http;//实例http类 利用反射获取参数
 
 $response = $http->run();
 
 $response->send();
-
+dump('333');
 $http->end($response);
