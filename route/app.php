@@ -20,3 +20,14 @@ Route::group('test',function(){
     Route::get('appLists', 'appLists');
     Route::get('containerBind', 'containerBind');
 })->prefix('test/');
+
+
+Route::get('doc/assets', "DocController/assets",['deny_ext'=>'php|.htacess']);
+Route::get('doc/search', "DocController/search");
+Route::get('doc/list', "DocController/getList");
+Route::get('doc/info', "DocController/getInfo");
+Route::any('doc/debug', "DocController/debug");
+Route::any('doc/pass', "DocController/pass");
+Route::any('doc/login', "DocController/login");
+Route::any('doc', "DocController/index");
+
