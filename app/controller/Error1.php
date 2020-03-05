@@ -13,6 +13,7 @@ class Error
 {
     public function __call($method, $args)
     {
+        echo 'ss';
         return 'error request!';
     }
 }

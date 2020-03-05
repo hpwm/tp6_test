@@ -1,4 +1,4 @@
 <?php
 return [
-    //'\app\service\AlipaySystemService',
+    '\app\service\AlipaySystemService',
 ];

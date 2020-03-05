@@ -5,6 +5,7 @@ namespace app\service;
 
 use app\pay\Pay1;
 use app\pay\Pay2;
+use think\Route;
 
 class AlipaySystemService  extends \think\Service
 {
@@ -15,9 +16,10 @@ class AlipaySystemService  extends \think\Service
      * @return mixed
      */
     public function register()
-    {
-    	 $this->app->bind('pay1',Pay1::class);
-    	 $this->app->bind('pay2',Pay2::class);
+    { var_dump('sss');
+    	 $this->app->bind('route',Route::class);
+
+    	 #$this->app->bind('pay2',Pay2::class);
     }
 
     
@@ -29,6 +31,6 @@ class AlipaySystemService  extends \think\Service
     public function boot()
     {
         //
-        echo 'boot';
+        #echo 'boot';
     }
 }
