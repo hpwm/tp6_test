@@ -33,6 +33,7 @@ Route::group('test',function(){
 
     Route::get('cmiddleware','cmiddleware');
     Route::get('curls','curls');
+    Route::get('publish','publish');
 
 })->prefix('test/');
 //资源路由

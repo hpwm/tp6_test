@@ -24,7 +24,7 @@ class TestTask extends Task
      */
     protected function execute()
     {
-        echo 'test';
+        file_put_contents('date.json',date('Y-m-d H:i:s').PHP_EOL,FILE_APPEND);
         //...具体的任务执行
     }
 }

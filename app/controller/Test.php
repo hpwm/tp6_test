@@ -10,12 +10,14 @@ namespace app\controller;
 
 
 use app\BaseController;
+use app\job\TestJob;
 use app\middleware\Cmiddleware;
 use app\model\User;
 use app\service\TestService;
 use think\App;
 use app\common\facade\Test as TestFacade;
 use think\facade\Event;
+use think\facade\Queue;
 
 class Test extends BaseController
 {
@@ -119,6 +121,15 @@ class Test extends BaseController
             $data[] = https_request($url);
         }
         var_dump($data);
+    }
+
+
+    public function publish()
+    {
+        $result = Queue::push(TestJob::class,['id'=>2],'test_job');
+
+        var_dump($result);
+        echo '任务添加成功';
     }
 
 }
