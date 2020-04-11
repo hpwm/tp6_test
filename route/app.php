@@ -17,6 +17,7 @@ Route::get('think', function () {
 
 Route::get('hello/:name', 'index/hello');
 
+//Route::bind('Test');
 Route::group('test',function(){
     Route::get('appLists', 'appLists');
     Route::get('containerBind', 'containerBind');
@@ -27,14 +28,32 @@ Route::group('test',function(){
 
 
     //路由 组合变量
-    Route::get('combine-<name>-<id>','route');
+    Route::get('combine-<name>-<id?>','route');
 
-    Route::get('commond','commond');
+    //Route::get('commond','commond');
 
     Route::get('cmiddleware','cmiddleware');
     Route::get('curls','curls');
     Route::get('publish','publish');
+    Route::get('pdfs','pdfs');
+    //Route::get('bindModel/:id','bindModel')->model('id','\app\model\User',false);//这样Test/bindModel 方法里面只需要接收 User $user即可 可进行isEmpty()判空
+    Route::get('bindModel/:id/:name','bindModel')->model('id&name','\app\model\User',false);//tp6.com.cn/test/bindModel/4/hp
+//    Route::get('bindModel/:id','bindModel')->model(function($id){
+//        $model = new \app\model\User;
+//        return $model->where('id', $id)->find();
+//    });
+
+
 
 })->prefix('test/');
-//资源路由
+Route::get('mroute','\app\service\TestService@route');
+//资源路由 test下 默认生成 index create read update save....方法
 Route::resource('blog', 'Test');
+
+//Route::resource('comment', 'Comment');
+Route::resource('blog.comment', 'Comment');
+
+//域名绑定
+Route::domain('tp6_bind',function(){
+    Route::get('test/commond','Test/commond');
+});

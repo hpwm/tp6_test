@@ -18,6 +18,8 @@ use think\App;
 use app\common\facade\Test as TestFacade;
 use think\facade\Event;
 use think\facade\Queue;
+use Mpdf\Mpdf;
+use think\Request;
 
 class Test extends BaseController
 {
@@ -94,7 +96,7 @@ class Test extends BaseController
     public function route($name,$id)
     {
         //组合变量
-        //var_dump($name,$id);
+        var_dump($name,$id);
     }
 
 
@@ -103,9 +105,18 @@ class Test extends BaseController
         echo 'resource-index';
     }
 
-    public function commond()
+    public function read($id)
     {
-        echo 242;
+        echo 'resource-read-'.$id;
+    }
+
+    public function commond(Request $request)
+    {
+        //var_dump($request->param('name'));
+        //var_dump($request->subDomain()); //tp6_bind
+        //var_dump($request->rootDomain()); //
+        //var_dump($request->url()); // /test/commond
+        var_dump($request->baseUrl()); //
     }
 
     public function cmiddleware()
@@ -130,6 +141,37 @@ class Test extends BaseController
 
         var_dump($result);
         echo '任务添加成功';
+    }
+
+    public function pdfs()
+    {
+        $url = 'https://dev.xunmatong.cn/contract/orderContract?id=1909105879914365';
+        $html = file_get_contents($url);
+        var_dump($html);
+        $mpdf = new Mpdf();
+        //设置中文字体
+        $mpdf->autoScriptToLang = true;
+        $mpdf->autoLangToFont = true;
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->WriteHTML($html);
+
+        //直接展示
+        //$mpdf -> Output();
+        //保存文件
+        $mpdf -> Output('test.pdf');
+    }
+
+    //组合变量
+    public function combineVar()
+    {
+        return 'combine';
+    }
+
+    public function bindModel(User $user,Request $request)
+    {
+        //var_dump($user->isEmpty());
+
+        var_dump($request->param('name','','strtoupper'));
     }
 
 }
