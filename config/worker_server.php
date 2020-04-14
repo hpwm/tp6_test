@@ -20,7 +20,11 @@ return [
     'socket'         => '', // 完整监听地址
     'context'        => [], // socket 上下文选项
     'worker_class'   => [
+
         \app\common\workerman\TestWorkerman::class,
+
+        \app\service\WorkermanService::class,
+
     ], // 自定义Workerman服务类名 支持数组定义多个服务
 
     // 支持workerman的所有配置参数

@@ -10,6 +10,7 @@ namespace app\controller;
 
 
 use app\BaseController;
+use app\job\TestJob;
 use app\middleware\Cmiddleware;
 use app\model\User;
 use app\Request;
@@ -18,7 +19,11 @@ use Mpdf\Mpdf;
 use think\App;
 use app\common\facade\Test as TestFacade;
 use think\facade\Event;
+
 use think\Request as TRequest;
+
+use think\facade\Queue;
+
 
 class Test extends BaseController
 {
@@ -95,7 +100,7 @@ class Test extends BaseController
     public function route($name,$id)
     {
         //组合变量
-        //var_dump($name,$id);
+        var_dump($name,$id);
     }
 
 
@@ -104,10 +109,16 @@ class Test extends BaseController
         echo 'resource-index';
     }
 
-    public function commond(TRequest $request)
+
+
+    public function commond(Request $request)
     {
-        $a = 'ss';
-        var_dump($request->query());
+        //var_dump($request->param('name'));
+        //var_dump($request->subDomain()); //tp6_bind
+        //var_dump($request->rootDomain()); //
+        //var_dump($request->url()); // /test/commond
+        var_dump($request->baseUrl()); //
+
     }
 
     public function cmiddleware()
@@ -118,28 +129,61 @@ class Test extends BaseController
 
     public function pdfs()
     {
-        $content = fopen('C:\Users\Administrator\Desktop\loan.docx','r+');
+        $content = fopen('C:\Users\Administrator\Desktop\loan.docx', 'r+');
         fre;
         $url = 'https://dev.xunmatong.cn/contract/orderContract?id=1909105879914365';
         $html = file_get_contents($url);
-        $mpdf = new Mpdf(['default_font_size'=>20]);
+        $mpdf = new Mpdf(['default_font_size' => 20]);
         //设置中文字体
         $mpdf->autoScriptToLang = true;
         $mpdf->autoLangToFont = true;
-        $header='<table width="95%" style="margin:0 auto;border-bottom: 1px solid #4F81BD; vertical-align: middle; font-family:serif; font-size: 9pt; color: #000088;"><tr>
+        $header = '<table width="95%" style="margin:0 auto;border-bottom: 1px solid #4F81BD; vertical-align: middle; font-family:serif; font-size: 9pt; color: #000088;"><tr>
                 <td width="10%"></td><td width="80%" align="center" style="font-size:16px;color:#A0A0A0">页眉</td>
                 <td width="10%" style="text-align: right;"></td></tr></table>';
 
-                //设置PDF页脚内容
-                        //在页脚html中添加 {PAGENO}/{nb} (当前页/总页数) 可添加页码
-        $footer='<table width="100%" style=" vertical-align: bottom; font-family:serif; font-size: 9pt; color: #000088;"><tr style="height:30px"></tr><tr>
+        //设置PDF页脚内容
+        //在页脚html中添加 {PAGENO}/{nb} (当前页/总页数) 可添加页码
+        $footer = '<table width="100%" style=" vertical-align: bottom; font-family:serif; font-size: 9pt; color: #000088;"><tr style="height:30px"></tr><tr>
                 <td width="10%"></td><td width="80%" align="center" style="font-size:14px;color:#A0A0A0">页脚</td>
                 <td width="10%" style="text-align: left;">页码：{PAGENO}/{nb}</td></tr></table>';
 
         $mpdf->SetHTMLHeader($header);
         $mpdf->SetHTMLFooter($footer);
-        $mpdf->WriteHTML($html,0);
+        $mpdf->WriteHTML($html, 0);
         $mpdf->Output('test.pdf');
+    }
+    public function curls()
+    {
+        $url = 'http://192.168.50.222:9501/test/redisPool';
+        for($i=0;$i<50;$i++){
+            $data[] = https_request($url);
+        }
+        var_dump($data);
+    }
+
+
+    public function publish()
+    {
+        $result = Queue::push(TestJob::class,['id'=>2],'test_job');
+
+        var_dump($result);
+        echo '任务添加成功';
+    }
+
+
+
+    //组合变量
+    public function combineVar()
+    {
+        return 'combine';
+    }
+
+    public function bindModel(User $user,Request $request)
+    {
+        //var_dump($user->isEmpty());
+
+        var_dump($request->param('name','','strtoupper'));
+
     }
 
 }

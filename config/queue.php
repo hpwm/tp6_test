@@ -10,7 +10,10 @@
 // +----------------------------------------------------------------------
 
 return [
-    'default'     => 'sync',
+
+
+    'default'     => 'database',
+
     'connections' => [
         'sync'     => [
             'type' => 'sync',

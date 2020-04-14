@@ -20,5 +20,5 @@ $http = (new App())->http;//实例http类 利用反射获取参数
 $response = $http->run();
 
 $response->send();
-dump('333');
+
 $http->end($response);

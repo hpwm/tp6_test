@@ -8,5 +8,6 @@ return [
     'think\Request'          => Request::class,
     'think\exception\Handle' => ExceptionHandle::class,
     'check'                  => Check::class,
+    //'route'      => \think\Route::class,
 
 ];
