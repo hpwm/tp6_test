@@ -30,7 +30,7 @@ Route::group('test',function(){
     //路由 组合变量
     Route::get('combine-<name>-<id?>','route');
 
-    //Route::get('commond','commond');
+    Route::get('commond','commond');
 
     Route::get('cmiddleware','cmiddleware');
     Route::get('curls','curls');
@@ -43,7 +43,7 @@ Route::group('test',function(){
 //        return $model->where('id', $id)->find();
 //    });
 
-
+    Route::post('orders','orders');
 
 })->prefix('test/');
 Route::get('mroute','\app\service\TestService@route');

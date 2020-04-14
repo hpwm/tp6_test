@@ -12,13 +12,17 @@ namespace app\controller;
 use app\BaseController;
 use app\job\TestJob;
 use app\middleware\Cmiddleware;
+use app\model\TaobaoOrder;
 use app\model\User;
 use app\service\TestService;
 use think\App;
 use app\common\facade\Test as TestFacade;
 use think\facade\Event;
+use think\facade\Log;
 use think\facade\Queue;
 use Mpdf\Mpdf;
+use think\log\driver\Socket;
+use think\log\driver\SocketLog;
 use think\Request;
 
 class Test extends BaseController
@@ -116,7 +120,9 @@ class Test extends BaseController
         //var_dump($request->subDomain()); //tp6_bind
         //var_dump($request->rootDomain()); //
         //var_dump($request->url()); // /test/commond
-        var_dump($request->baseUrl()); //
+        //var_dump($request->baseUrl()); //
+        $result = TaobaoOrder::select();
+        return json(['data'=>$result]);
     }
 
     public function cmiddleware()
@@ -174,4 +180,33 @@ class Test extends BaseController
         var_dump($request->param('name','','strtoupper'));
     }
 
+    public function orders()
+    {
+        $path = 'order.json';
+        $str = file_get_contents($path);
+        $data = json_decode($str,true);
+        $main_order = $data['mainOrders'];
+        $data = array_map(function($v){
+            return $this->handleOrder($v);
+        },$main_order);
+        $model = new TaobaoOrder();
+        $result = $model->saveAll($data);
+        return json(['code'=>0,'msg'=>'保存成功','data'=>$result]);
+    }
+
+
+    public function handleOrder($order)
+    {
+        $seller = $order['seller'];
+        $payInfo = $order['payInfo'];
+        $subOrders = $order['subOrders'];
+        $statusInfo = $order['statusInfo'];
+        $data = [
+              'title'=>$subOrders[0]['itemInfo']['title'],
+              'seller_name'=>$seller['shopName'],
+              'price'=>$payInfo['actualFee'],
+              'status'=>$statusInfo['text'],
+        ];
+        return $data;
+    }
 }
