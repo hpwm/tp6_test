@@ -46,6 +46,7 @@ Route::group('test',function(){
 
 
 })->prefix('test/');
+
 Route::get('mroute','\app\service\TestService@route');
 //资源路由 test下 默认生成 index create read update save....方法
 Route::resource('blog', 'Test');
@@ -57,3 +58,4 @@ Route::resource('blog.comment', 'Comment');
 Route::domain('tp6_bind',function(){
     Route::get('test/commond','Test/commond');
 });
+

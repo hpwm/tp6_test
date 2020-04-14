@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57f2b314644100348a72e641de9e2bfe",
+
+    "content-hash": "9ef3f6f1993fcd90da3b2fda07e08183",
     "packages": [
         {
             "name": "casbin/casbin",
@@ -2317,8 +2318,101 @@
                 "asynchronous",
                 "event-loop"
             ],
+<<<<<<< HEAD
             "time": "2020-03-05T11:08:04+00:00"
         },
+=======
+            "time": "2019-11-17T07:53:45+00:00"
+        },
+        {
+            "name": "topthink/think-template",
+            "version": "v2.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/top-think/think-template.git",
+                "reference": "e98bdbb4a4c94b442f17dfceba81e0134d4fbd19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/top-think/think-template/zipball/e98bdbb4a4c94b442f17dfceba81e0134d4fbd19",
+                "reference": "e98bdbb4a4c94b442f17dfceba81e0134d4fbd19",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.1.0",
+                "psr/simple-cache": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "think\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "liu21st",
+                    "email": "liu21st@gmail.com"
+                }
+            ],
+            "description": "the php template engine",
+            "time": "2019-09-20T15:31:04+00:00"
+        },
+        {
+            "name": "topthink/think-view",
+            "version": "v1.0.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/top-think/think-view.git",
+                "reference": "edce0ae2c9551ab65f9e94a222604b0dead3576d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/top-think/think-view/zipball/edce0ae2c9551ab65f9e94a222604b0dead3576d",
+                "reference": "edce0ae2c9551ab65f9e94a222604b0dead3576d",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.1.0",
+                "topthink/think-template": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "think\\view\\driver\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "liu21st",
+                    "email": "liu21st@gmail.com"
+                }
+            ],
+            "description": "thinkphp template driver",
+            "time": "2019-11-06T11:40:13+00:00"
+        }
+    ],
+    "packages-dev": [
+>>>>>>> 1e7494bfa474c37fff077bbcc895fda0050f64eb
         {
             "name": "yunwuxin/think-cron",
             "version": "v3.0.1",
@@ -2329,8 +2423,13 @@
             },
             "dist": {
                 "type": "zip",
+<<<<<<< HEAD
                 "url": "https://api.github.com/repos/yunwuxin/think-cron/zipball/44e4133c4e8ef0f59ebae095575e0b2c73caf9f5",
                 "reference": "44e4133c4e8ef0f59ebae095575e0b2c73caf9f5",
+=======
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7b4aab9743c30be783b73de055d24a39cf4b954f",
+                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f",
+>>>>>>> 1e7494bfa474c37fff077bbcc895fda0050f64eb
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2388,7 +2487,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/66fea50f6cb37a35eea048d75a7d99a45b586038",
                 "reference": "66fea50f6cb37a35eea048d75a7d99a45b586038",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.3"
@@ -2443,7 +2548,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/var-dumper/zipball/be330f919bdb395d1e0c3f2bfb8948512d6bdd99",
                 "reference": "be330f919bdb395d1e0c3f2bfb8948512d6bdd99",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -2519,7 +2630,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-trace/zipball/4589d06a07945d57478cc2236f4b23d51ff919cc",
                 "reference": "4589d06a07945d57478cc2236f4b23d51ff919cc",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=7.1.0",
