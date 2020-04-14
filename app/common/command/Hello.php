@@ -1,8 +1,9 @@
 <?php
 declare (strict_types = 1);
 
-namespace app\command;
+namespace app\common\command;
 
+use app\common\service\WorkermanService;
 use think\console\Command;
 use think\console\Input;
 use think\console\input\Argument;
@@ -24,7 +25,7 @@ class Hello extends Command
     protected function execute(Input $input, Output $output)
     {
         $name = trim($input->getArgument('name'));
-
+        WorkermanService::tasks();
     	// 指令输出
     	$output->writeln('hello');
     }

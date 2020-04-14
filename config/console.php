@@ -5,6 +5,7 @@
 return [
     // 指令定义
     'commands' => [
-        'hello' => 'app\command\Hello',
+        'hello' => 'app\common\command\Hello',
+        'workerman'=>\app\common\command\Workerman::class
     ]
 ];
