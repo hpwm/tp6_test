@@ -17,6 +17,7 @@ use app\model\User;
 use app\service\TestService;
 use think\App;
 use app\common\facade\Test as TestFacade;
+use think\facade\Db;
 use think\facade\Event;
 use think\facade\Log;
 use think\facade\Queue;
@@ -121,8 +122,33 @@ class Test extends BaseController
         //var_dump($request->rootDomain()); //
         //var_dump($request->url()); // /test/commond
         //var_dump($request->baseUrl()); //
-        $result = TaobaoOrder::select();
-        return json(['data'=>$result]);
+//        $result = TaobaoOrder::select();
+//        return json(['data'=>$result]);
+
+        $product = [
+            [
+                'product_id'=>1,
+                'pnid'=>1,
+                'pvid'=>10
+            ],
+            [
+                'product_id'=>1,
+                'pnid'=>3,
+                'pvid'=>30
+            ],
+            [
+                'product_id'=>1,
+                'pnid'=>12,
+                'pvid'=>21
+            ],
+            [
+                'product_id'=>1,
+                'pnid'=>31,
+                'pvid'=>33
+            ],
+        ];
+        $oldData = array_column($product,null,'pnid');
+        var_dump($oldData);
     }
 
     public function cmiddleware()
@@ -209,4 +235,43 @@ class Test extends BaseController
         ];
         return $data;
     }
+
+    public function zangdu1()
+    {
+        Db::startTrans();
+        try{
+            $user = User::where('id',1)->find();
+            $user->nickname = 'hp_wm';
+            $user->save();
+            //var_dump(User::where('id',1)->find()->toArray());
+            sleep(5);
+
+            Db::commit();
+            //Db::rollback();
+            echo '处理完成';
+        }catch (\Exception $e){
+            Db::rollback();
+            echo $e->getMessage();
+        }
+
+    }
+
+    public function zangdu2()
+    {
+        Db::startTrans();
+        try{
+            $user = User::where('id',1)->find();
+            if($user->nickname == 'hp_wm'){
+                $user->nickname = 'hp_wm_zangdu';
+                $user->save();
+                echo '产生脏读了';
+            }
+            Db::commit();
+            echo '处理完成';
+        }catch (\Exception $e){
+            Db::rollback();
+            echo $e->getMessage();
+        }
+    }
+
 }

@@ -45,6 +45,9 @@ Route::group('test',function(){
 
     Route::post('orders','orders');
 
+    Route::post('zangdu1','zangdu1');
+    Route::post('zangdu2','zangdu2');
+
 })->prefix('test/');
 Route::get('mroute','\app\service\TestService@route');
 //资源路由 test下 默认生成 index create read update save....方法
