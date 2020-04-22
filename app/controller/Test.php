@@ -25,7 +25,7 @@ use Mpdf\Mpdf;
 use think\log\driver\Socket;
 use think\log\driver\SocketLog;
 use think\Request;
-
+include_once __DIR__.'/../../extend/workerman-JsonRpc/Applications/JsonRpc/Clients/RpcClient.php';
 class Test extends BaseController
 {
 
@@ -125,6 +125,33 @@ class Test extends BaseController
 //        $result = TaobaoOrder::select();
 //        return json(['data'=>$result]);
 
+        $address_array = array(
+            'tcp://127.0.0.1:2015',
+            'tcp://127.0.0.1:2015'
+        );
+// 配置服务端列表
+        \RpcClient::config($address_array);
+
+        $uid = 567;
+
+// User对应applications/JsonRpc/Services/User.php 中的User类
+        $user_client = \RpcClient::instance('User');
+
+// getInfoByUid对应User类中的getInfoByUid方法
+//        $ret_sync = $user_client->getInfoByUid($uid);
+
+        // 异步调用User::getInfoByUid方法
+        $user_client->asend_getInfoByUid($uid);
+// 异步调用User::getEmail方法
+        $user_client->asend_getEmail($uid);
+
+
+
+// 需要数据的时候异步接收数据
+$ret_async1 = $user_client->arecv_getEmail($uid);
+$ret_async2 = $user_client->arecv_getInfoByUid($uid);
+        var_dump($ret_async1,$ret_async2);
+        die;
         $product = [
             [
                 'product_id'=>1,
