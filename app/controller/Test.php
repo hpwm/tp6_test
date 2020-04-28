@@ -301,4 +301,54 @@ $ret_async2 = $user_client->arecv_getInfoByUid($uid);
         }
     }
 
+
+    public function channelNum()
+    {
+        $a= 10000;
+        $pri_account = 'Z0099';
+        $child_account = 'Z99A00';
+        for($i=0;$i<$a;$i++){
+            $new = $this->getLastEn($pri_account,$child_account);
+            $child_account = $new;
+            echo $new.'<br />';
+        }
+
+    }
+
+    public function getLastEn($pri_account,$child_account)
+    {
+        $english = get_english();
+
+        if($child_account=='Z99Z99'){
+            throw new \Exception('渠道编号已使用完！');
+        }
+
+//        $pri_account = 'C00005';
+//        $child_account = 'C05A01';
+
+        $first_en = substr($pri_account,0,1);//C
+        $pri_flag = substr($pri_account,-2);//05
+
+
+        $child_middle = substr($child_account,3,1);
+        $child_middle_last = substr($child_account,-2);
+
+        $next_two = $child_middle_last+1;
+
+        if($next_two<10){
+            $next_two = '0'.$next_two;
+        }
+        if($child_middle_last>=99){
+            $current_key = array_search($child_middle,$english);
+            if($current_key>=count($english)-1){
+                throw new \Exception('子渠道编号已使用完，请联系技术检查');
+            }
+            $child_middle = $english[$current_key+1];
+            $next_two = '00';
+        }
+        $new_channel_num = $first_en.$pri_flag.$child_middle.$next_two;
+        return $new_channel_num;
+
+    }
+
 }
