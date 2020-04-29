@@ -19,6 +19,7 @@ use app\common\facade\Test as TestFacade;
 use think\facade\Event;
 use think\facade\Queue;
 use Mpdf\Mpdf;
+use think\facade\Session;
 use think\Request;
 
 class Test extends BaseController
@@ -116,12 +117,19 @@ class Test extends BaseController
         //var_dump($request->subDomain()); //tp6_bind
         //var_dump($request->rootDomain()); //
         //var_dump($request->url()); // /test/commond
-        var_dump($request->baseUrl()); //
+        //var_dump($request->baseUrl()); //
+        Session::set('name1', 'thinkphp3');
+        $name = Session::get('name1');
+        var_dump($name);
     }
 
     public function cmiddleware()
     {
 
+        //$name = Session::get('name1');
+        //var_dump($name);
+        session_start();
+        var_dump($_SESSION);
     }
 
 

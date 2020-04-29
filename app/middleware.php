@@ -10,4 +10,5 @@ return [
      //\think\middleware\SessionInit::class
     //'check'=>\app\middleware\Check::class
     //[\think\middleware\AllowCrossDomain::class,'token']
+    'think\middleware\SessionInit'
 ];

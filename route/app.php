@@ -30,7 +30,7 @@ Route::group('test',function(){
     //路由 组合变量
     Route::get('combine-<name>-<id?>','route');
 
-    //Route::get('commond','commond');
+    Route::get('commond','commond');
 
     Route::get('cmiddleware','cmiddleware');
     Route::get('curls','curls');
@@ -56,4 +56,12 @@ Route::resource('blog.comment', 'Comment');
 //域名绑定
 Route::domain('tp6_bind',function(){
     Route::get('test/commond','Test/commond');
+    Route::get('test/cmiddleware','Test/cmiddleware');
 });
+
+
+Route::group('redis',function(){
+    Route::any('penetrate','penetrate');//缓存穿透
+    Route::post('breakthrough','breakthrough');//缓存击穿
+    Route::post('snowslide','snowslide');//缓存雪崩
+})->prefix('redis/');
