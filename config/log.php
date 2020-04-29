@@ -6,7 +6,7 @@ use think\facade\Env;
 // +----------------------------------------------------------------------
 return [
     // 默认日志记录通道
-    'default'      => Env::get('log.channel', 'file'),
+    'default'      => Env::get('log.channel', 'socket'),
     // 日志记录级别
     'level'        => [],
     // 日志类型记录的通道 ['error'=>'email',...]
@@ -40,7 +40,16 @@ return [
             // 是否实时写入
             'realtime_write' => false,
         ],
-        // 其它日志通道配置
+        'socket'=>[
+            // 其它日志通道配置
+            'type'                => 'SocketLog',
+            'host'                => '47.95.197.248',
+            //日志强制记录到配置的client_id
+            'force_client_ids'    => ['test_client_id'],
+            //限制允许读取日志的client_id
+            'allow_client_ids'    => ['test_client_id'],
+        ],
+
     ],
 
 ];

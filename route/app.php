@@ -43,7 +43,11 @@ Route::group('test',function(){
 //        return $model->where('id', $id)->find();
 //    });
 
+    Route::post('orders','orders');
 
+    Route::post('zangdu1','zangdu1');
+    Route::post('zangdu2','zangdu2');
+    Route::post('channelNum','channelNum');
 
 })->prefix('test/');
 Route::get('mroute','\app\service\TestService@route');

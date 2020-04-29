@@ -12,16 +12,24 @@ namespace app\controller;
 use app\BaseController;
 use app\job\TestJob;
 use app\middleware\Cmiddleware;
+use app\model\TaobaoOrder;
 use app\model\User;
 use app\service\TestService;
 use think\App;
 use app\common\facade\Test as TestFacade;
+use think\facade\Db;
 use think\facade\Event;
+use think\facade\Log;
 use think\facade\Queue;
 use Mpdf\Mpdf;
+<<<<<<< HEAD
 use think\facade\Session;
+=======
+use think\log\driver\Socket;
+use think\log\driver\SocketLog;
+>>>>>>> c5d335a1352aeb43c0938a1c97945d2bcc4de421
 use think\Request;
-
+include_once __DIR__.'/../../extend/workerman-JsonRpc/Applications/JsonRpc/Clients/RpcClient.php';
 class Test extends BaseController
 {
 
@@ -118,9 +126,66 @@ class Test extends BaseController
         //var_dump($request->rootDomain()); //
         //var_dump($request->url()); // /test/commond
         //var_dump($request->baseUrl()); //
+<<<<<<< HEAD
         Session::set('name1', 'thinkphp3');
         $name = Session::get('name1');
         var_dump($name);
+=======
+//        $result = TaobaoOrder::select();
+//        return json(['data'=>$result]);
+
+        $address_array = array(
+            'tcp://127.0.0.1:2015',
+            'tcp://127.0.0.1:2015'
+        );
+// 配置服务端列表
+        \RpcClient::config($address_array);
+
+        $uid = 567;
+
+// User对应applications/JsonRpc/Services/User.php 中的User类
+        $user_client = \RpcClient::instance('User');
+
+// getInfoByUid对应User类中的getInfoByUid方法
+//        $ret_sync = $user_client->getInfoByUid($uid);
+
+        // 异步调用User::getInfoByUid方法
+        $user_client->asend_getInfoByUid($uid);
+// 异步调用User::getEmail方法
+        $user_client->asend_getEmail($uid);
+
+
+
+// 需要数据的时候异步接收数据
+$ret_async1 = $user_client->arecv_getEmail($uid);
+$ret_async2 = $user_client->arecv_getInfoByUid($uid);
+        var_dump($ret_async1,$ret_async2);
+        die;
+        $product = [
+            [
+                'product_id'=>1,
+                'pnid'=>1,
+                'pvid'=>10
+            ],
+            [
+                'product_id'=>1,
+                'pnid'=>3,
+                'pvid'=>30
+            ],
+            [
+                'product_id'=>1,
+                'pnid'=>12,
+                'pvid'=>21
+            ],
+            [
+                'product_id'=>1,
+                'pnid'=>31,
+                'pvid'=>33
+            ],
+        ];
+        $oldData = array_column($product,null,'pnid');
+        var_dump($oldData);
+>>>>>>> c5d335a1352aeb43c0938a1c97945d2bcc4de421
     }
 
     public function cmiddleware()
@@ -180,6 +245,124 @@ class Test extends BaseController
         //var_dump($user->isEmpty());
 
         var_dump($request->param('name','','strtoupper'));
+    }
+
+    public function orders()
+    {
+        $path = 'order.json';
+        $str = file_get_contents($path);
+        $data = json_decode($str,true);
+        $main_order = $data['mainOrders'];
+        $data = array_map(function($v){
+            return $this->handleOrder($v);
+        },$main_order);
+        $model = new TaobaoOrder();
+        $result = $model->saveAll($data);
+        return json(['code'=>0,'msg'=>'保存成功','data'=>$result]);
+    }
+
+
+    public function handleOrder($order)
+    {
+        $seller = $order['seller'];
+        $payInfo = $order['payInfo'];
+        $subOrders = $order['subOrders'];
+        $statusInfo = $order['statusInfo'];
+        $data = [
+              'title'=>$subOrders[0]['itemInfo']['title'],
+              'seller_name'=>$seller['shopName'],
+              'price'=>$payInfo['actualFee'],
+              'status'=>$statusInfo['text'],
+        ];
+        return $data;
+    }
+
+    public function zangdu1()
+    {
+        Db::startTrans();
+        try{
+            $user = User::where('id',1)->find();
+            $user->nickname = 'hp_wm';
+            $user->save();
+            //var_dump(User::where('id',1)->find()->toArray());
+            sleep(5);
+
+            Db::commit();
+            //Db::rollback();
+            echo '处理完成';
+        }catch (\Exception $e){
+            Db::rollback();
+            echo $e->getMessage();
+        }
+
+    }
+
+    public function zangdu2()
+    {
+        Db::startTrans();
+        try{
+            $user = User::where('id',1)->find();
+            if($user->nickname == 'hp_wm'){
+                $user->nickname = 'hp_wm_zangdu';
+                $user->save();
+                echo '产生脏读了';
+            }
+            Db::commit();
+            echo '处理完成';
+        }catch (\Exception $e){
+            Db::rollback();
+            echo $e->getMessage();
+        }
+    }
+
+
+    public function channelNum()
+    {
+        $a= 10000;
+        $pri_account = 'Z0099';
+        $child_account = 'Z99A00';
+        for($i=0;$i<$a;$i++){
+            $new = $this->getLastEn($pri_account,$child_account);
+            $child_account = $new;
+            echo $new.'<br />';
+        }
+
+    }
+
+    public function getLastEn($pri_account,$child_account)
+    {
+        $english = get_english();
+
+        if($child_account=='Z99Z99'){
+            throw new \Exception('渠道编号已使用完！');
+        }
+
+//        $pri_account = 'C00005';
+//        $child_account = 'C05A01';
+
+        $first_en = substr($pri_account,0,1);//C
+        $pri_flag = substr($pri_account,-2);//05
+
+
+        $child_middle = substr($child_account,3,1);
+        $child_middle_last = substr($child_account,-2);
+
+        $next_two = $child_middle_last+1;
+
+        if($next_two<10){
+            $next_two = '0'.$next_two;
+        }
+        if($child_middle_last>=99){
+            $current_key = array_search($child_middle,$english);
+            if($current_key>=count($english)-1){
+                throw new \Exception('子渠道编号已使用完，请联系技术检查');
+            }
+            $child_middle = $english[$current_key+1];
+            $next_two = '00';
+        }
+        $new_channel_num = $first_en.$pri_flag.$child_middle.$next_two;
+        return $new_channel_num;
+
     }
 
 }

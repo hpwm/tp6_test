@@ -21,3 +21,13 @@ function https_request($url, $data = null)
     //$output = json_decode($output,true);
     return $output;
 }
+
+
+function get_english($lower=false)
+{
+    $arr = [];
+    for($i=65;$i<91;$i++){
+        $arr[] = strtoupper(chr($i));
+    }
+    return $arr;
+}

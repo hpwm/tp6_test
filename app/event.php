@@ -11,11 +11,11 @@ return [
         'HttpEnd'  => [],
         'LogLevel' => [],
         'LogWrite' => [],
-        'UserLogin'    =>    ['app\listener\UserLogin'],
+        //'UserLogin'    =>    ['app\listener\UserLogin'],
 
     ],
 
     'subscribe' => [
-        'app\subscribe\User',
+        //'app\subscribe\User',
     ],
 ];
