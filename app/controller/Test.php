@@ -22,12 +22,12 @@ use think\facade\Event;
 use think\facade\Log;
 use think\facade\Queue;
 use Mpdf\Mpdf;
-<<<<<<< HEAD
+
 use think\facade\Session;
-=======
+
 use think\log\driver\Socket;
 use think\log\driver\SocketLog;
->>>>>>> c5d335a1352aeb43c0938a1c97945d2bcc4de421
+
 use think\Request;
 include_once __DIR__.'/../../extend/workerman-JsonRpc/Applications/JsonRpc/Clients/RpcClient.php';
 class Test extends BaseController
@@ -126,11 +126,11 @@ class Test extends BaseController
         //var_dump($request->rootDomain()); //
         //var_dump($request->url()); // /test/commond
         //var_dump($request->baseUrl()); //
-<<<<<<< HEAD
+
         Session::set('name1', 'thinkphp3');
         $name = Session::get('name1');
         var_dump($name);
-=======
+
 //        $result = TaobaoOrder::select();
 //        return json(['data'=>$result]);
 
@@ -185,7 +185,7 @@ $ret_async2 = $user_client->arecv_getInfoByUid($uid);
         ];
         $oldData = array_column($product,null,'pnid');
         var_dump($oldData);
->>>>>>> c5d335a1352aeb43c0938a1c97945d2bcc4de421
+
     }
 
     public function cmiddleware()
