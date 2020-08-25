@@ -1,5 +1,6 @@
 <?php
 // 全局中间件定义文件
+use \think\middleware\Throttle;
 return [
     // 全局请求缓存
      //\think\middleware\CheckRequestCache::class,
@@ -10,5 +11,6 @@ return [
      //\think\middleware\SessionInit::class
     //'check'=>\app\middleware\Check::class
     //[\think\middleware\AllowCrossDomain::class,'token']
-    'think\middleware\SessionInit'
+    'think\middleware\SessionInit',
+    Throttle::class,
 ];

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1722a2c00252e06ff3889cb38008f916",
+    "content-hash": "7fde3c599b4563fc1704366ca8612267",
     "packages": [
         {
             "name": "casbin/casbin",
@@ -1908,6 +1908,7 @@
                     "email": "448901948@qq.com"
                 }
             ],
+            "abandoned": true,
             "time": "2019-04-15T06:55:28+00:00"
         },
         {
@@ -2262,6 +2263,56 @@
             ],
             "description": "the php template engine",
             "time": "2019-09-20T15:31:04+00:00"
+        },
+        {
+            "name": "topthink/think-throttle",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/top-think/think-throttle.git",
+                "reference": "5b646ad44a63162d7117e6dd6310d0ab362c79e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/top-think/think-throttle/zipball/5b646ad44a63162d7117e6dd6310d0ab362c79e6",
+                "reference": "5b646ad44a63162d7117e6dd6310d0ab362c79e6",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.1.0",
+                "topthink/framework": "^6.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "think": {
+                    "config": {
+                        "throttle": "src/config.php"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "think\\middleware\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "hongweipeng",
+                    "email": "hongweichen8888@sina.com"
+                }
+            ],
+            "description": "throttle middleware for thinkphp6",
+            "time": "2020-04-15T09:30:48+00:00"
         },
         {
             "name": "topthink/think-view",
